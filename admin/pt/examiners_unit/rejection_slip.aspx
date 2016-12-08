@@ -229,8 +229,11 @@ padding-left:5px;
                 <td align="center">{{row.Validation}}</td>
                  <td align="center">{{row.reg_date}}</td>
                  <td align="center">{{row.Office}}</td>
-                <td align="center"><a href="examination_r_details.aspx?x={{row.xID}}"><i class="fa fa-link"></i></a></td>
-                <td align="center"><a target="_blank"  href="examination_r_details.aspx?x={{row.xID}}"><i class="fa fa-external-link"></i></a></td>
+                
+               <%-- <td align="center"><a href="examination_r_details.aspx?x={{row.xID}}"><i class="fa fa-link"></i></a></td>--%>
+                 <td align="center"><a href="rejection_slip_details.aspx?x={{row.xID}}"><i class="fa fa-link"></i></a></td>
+               <%-- <td align="center"><a target="_blank"  href="examination_r_details.aspx?x={{row.xID}}"><i class="fa fa-external-link"></i></a></td>--%>
+                <td align="center"><a target="_blank"  href="rejection_slip_details.aspx?x={{row.xID}}"><i class="fa fa-external-link"></i></a></td>
                
 
                

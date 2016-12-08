@@ -10,6 +10,8 @@ app.filter('offset', function () {
 });
 
 
+
+
 var serviceBase = serviceBasePatent + '';
 
 app.controller('myController3', ['$scope', '$http', '$rootScope', function ($scope, $http, $rootScope) {

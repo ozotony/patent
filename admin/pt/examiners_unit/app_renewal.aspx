@@ -24,6 +24,7 @@
 
 <script type="text/javascript" src="../../../js/ui/jquery.ui.autocomplete.js"></script>
 <script src="../../../js/funk.js" type="text/javascript"></script>
+   
 
  <script src="../../../js/angular.min.js"></script>
     <script src="../../../js/AngularLogin4.js"></script>
@@ -37,6 +38,7 @@
     <script src="../../../js/xlsx.core.min.js"></script>
     <script src="../../../js/angular-sanitize.min.js"></script>
     <script src="../../../js/ng-csv.min.js"></script>
+   
 <script language="javascript" type="text/javascript">
     function doPostResults(eu) {
         postwith('./verify_data.aspx', { eu: eu });
@@ -211,7 +213,7 @@ padding-left:5px;
             </tr>
             </table>
 
-                 <table st-table="displayedCollection" st-safe-src="ListAgent" class="table table-responsive  table-hover  table-bordered">
+                 <table id="tableID" st-table="displayedCollection" st-safe-src="ListAgent" class="table table-responsive  table-hover  table-bordered export-table ">
         <thead>
             <tr>
                  <th  class="tdcolheader">S/N</th>
@@ -262,6 +264,8 @@ padding-left:5px;
         </tfoot>
     </table>
               <button type="button" ng-click="Export()" >Export To Excel</button>
+
+           
            </div>
          
                  
