@@ -118,13 +118,14 @@ Accordingly:
                 <br />
                
                 <div style="text-align:right;">
-                     <img alt="sign" class="style1" src="../signatures/Adeyemi.jpg"/>
+                    <%--  <img alt="sign" class="style1" src="../signatures/Adeyemi.jpg"/> --%>
+                     <img alt="Signature" class="style1" src="../signatures/aisha_acceptance_mini_png.png" />
 
                    <%-- <img alt="sign" class="style1" src="../signatures/sig.jpg"/>--%>
 
                 </div><br />
                 
-                <div  ><strong>L.S.</strong>  <span style="padding-left:760px;"><strong>Registrar of Patents & Designs</strong> </span></div> 
+                <div  ><strong>L.S.</strong>  <span style="padding-left:760px;"><strong> Acting Director / Registrar</strong> </span></div> 
                 </div></td>
         </tr>       
     </table>

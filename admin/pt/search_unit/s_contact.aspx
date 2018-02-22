@@ -328,6 +328,7 @@ margin-left: 12px;"></div>
             <tr>
                  <th  class="tdcolheader">S/N</th>
                 <th st-sort="reg_number" class="tdcolheader">REGISTRATION NUMBER</th>
+                <th st-sort="reg_number" class="tdcolheader">APPLICANT NAME</th>
                 <th st-sort="title_of_invention" class="tdcolheader">PRODUCT TITLE</th>
                  <th st-sort="xtype" class="tdcolheader"> PT TYPE</th>
                  <th st-sort="Validation" class="tdcolheader"> OAI No.</th>
@@ -350,6 +351,7 @@ margin-left: 12px;"></div>
                
                 <td align="center">{{row.Sn}}</td>
                 <td align="center">{{row.reg_number}}</td>
+                 <td align="center">{{row.xname}}</td>
                 <td align="center">{{row.title_of_invention}}</td>
                  <td align="center">{{row.xtype}}</td>
                 <td align="center">{{row.Validation}}</td>

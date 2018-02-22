@@ -25,6 +25,11 @@
 	font-size:11.0pt;
 	font-family:"Calibri","sans-serif";
 	}
+        .auto-style1 {
+            width: 131px;
+            height: 54px;
+           
+        }
     </style>
 
 
@@ -266,13 +271,13 @@ color:#E36C0A;mso-themecolor:accent6;mso-themeshade:191">CERTIFICATE OF RENEWAL 
                             <br />
                           
                                
-                                  <img alt="Signature" class="style1" src="../signatures/renewal.jpg" />
+                                 <b> <img alt="Signature"  src="../signatures/renewal5.jpg" /> </b>
                          <%--   <img alt="Signature" class="style1" src="../signatures/aisha_acceptance_mini_png.png" />--%>
                                <%-- <img alt="Signature" class="style1" src="../signatures/sig.jpg" />--%>
                                <br />
 
-                            CHINYERE AGBAI (DCR II )<br />
-For: The Registrar of Patents and Designs<br />
+                            STELLA OZO EZENDUKA <br />
+DEPUTY CHIEF REGISTRAR<br />
 </strong>
 
                         </td>

@@ -370,7 +370,11 @@ public partial class admin_pt_x_unit_edit_form : Page
             c_ptinfo.log_staff = lt_pwx[0].ID;
         }
         c_ptinfo.reg_date = TextBox1.Text;
-        lt_mix[0].reg_date = TextBox1.Text;
+        try
+        {
+            lt_mix[0].reg_date = TextBox1.Text;
+
+      
       
         if ((lt_mix[0].reg_date == null) || (c_ptinfo.reg_date == ""))
         {
@@ -379,6 +383,13 @@ public partial class admin_pt_x_unit_edit_form : Page
         else
         {
             c_ptinfo.reg_date = lt_mix[0].reg_date;
+        }
+
+        }
+
+        catch (Exception ee)
+        {
+
         }
         c_ptinfo.xvisible = xvisible;
         c_ptinfo.claim_no = "0";

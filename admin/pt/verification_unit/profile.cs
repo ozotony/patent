@@ -14,6 +14,14 @@ public partial class admin_pt_verification_unit_profile : Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        if (Request.Form["adminx"] != null)
+        {
+            String vvv = Request.Form["adminx"];
+
+            Session["pwalletID"] = vvv;
+
+        }
         if (Session["pwalletID"] != null)
         {
             if (Session["pwalletID"].ToString() != "")

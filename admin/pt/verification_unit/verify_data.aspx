@@ -29,6 +29,7 @@
     <script src="../../../js/AngularLogin.js"></script>
     <script src="../../../js/smart-table.min.js"></script>
     <script src="../../../js/sweet-alert.min.js"></script>
+    <link href="../../../css/sweet-alert.css" rel="stylesheet" />
     <script src="../../../js/loading-bar.js"></script>
     <link href="../../../css/loading-bar.css" rel="stylesheet" />
     <link href="../../../css/font-awesome.min.css" rel="stylesheet" />
@@ -103,7 +104,9 @@ padding-left:5px;
           <tr class="stripedout">
             <td colspan="8" align="center">
             &nbsp;<asp:Button ID="btnReloadPage" runat="server" class="button" 
-                    onclick="btnReloadPage_Click" Text="RELOAD PAGE" />
+                    onclick="btnReloadPage_Click"  Visible="false" Text="RELOAD PAGE" />
+
+                 <input id="Button1" type="button"  class="button" ng-click="changeValue2()" value="UPDATE BATCH " /> 
               </td>
           </tr>
          
@@ -200,12 +203,14 @@ padding-left:5px;
             <tr>
                  <th  class="tdcolheader">S/N</th>
                 <th st-sort="reg_number" class="tdcolheader">REGISTRATION NUMBER</th>
+                 <th st-sort="reg_number" class="tdcolheader">APPLICANT NAME</th>
                 <th st-sort="title_of_invention" class="tdcolheader">PRODUCT TITLE</th>
                  <th st-sort="xtype" class="tdcolheader"> PT TYPE</th>
                  <th st-sort="Validation" class="tdcolheader"> OAI No.</th>
                  <th st-sort="reg_date" class="tdcolheader"> Enrolled On</th>
 
                  <th st-sort="Office" class="tdcolheader"> Status</th>
+                <th st-sort="Action" class="tdcolheader"> Action</th>
 
                  <th st-sort="reg_no" class="tdcolheader">View </th>
                 <th st-sort="reg_no" class="tdcolheader">Open New Tab</th>
@@ -214,7 +219,7 @@ padding-left:5px;
 
             </tr>
             <tr>
-                <th colspan="9"><input st-search="" class="form-control" placeholder="global search ..." type="text" /></th>
+                <th colspan="11"><input st-search="" class="form-control" placeholder="global search ..." type="text" /></th>
             </tr>
         </thead>
         <tbody>
@@ -222,11 +227,13 @@ padding-left:5px;
                
                 <td align="center">{{row.Sn}}</td>
                 <td align="center">{{row.reg_number}}</td>
+                <td align="center">{{row.xname}}</td>
                 <td align="center">{{row.title_of_invention}}</td>
                  <td align="center">{{row.xtype}}</td>
                 <td align="center">{{row.Validation}}</td>
                  <td align="center">{{row.reg_date}}</td>
                  <td align="center">{{row.Office}}</td>
+                <td align="center"><span>Search Unit </span</span> <input type="checkbox"  {{row.description}} ng-checked="changeValue(row)" ng-model="row.description"></td>
                 <td align="center"><a href="verify_details.aspx?x={{row.xID}}"><i class="fa fa-link"></i></a></td>
                 <td align="center"><a target="_blank"  href="verify_details.aspx?x={{row.xID}}"><i class="fa fa-external-link"></i></a></td>
                
@@ -242,7 +249,7 @@ padding-left:5px;
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="9" class="text-center">
+                <td colspan="11" class="text-center">
                     <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
                 </td>
             </tr>

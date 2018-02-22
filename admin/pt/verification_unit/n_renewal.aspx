@@ -28,6 +28,7 @@
     <script src="../../../js/AngularLogin2.js"></script>
     <script src="../../../js/smart-table.min.js"></script>
     <script src="../../../js/sweet-alert.min.js"></script>
+        <link href="../../../css/sweet-alert.css" rel="stylesheet" />
     <script src="../../../js/loading-bar.js"></script>
      <link href="../../../css/loading-bar.css" rel="stylesheet" />
 
@@ -103,7 +104,9 @@ padding-left:5px;
           <tr >
             <td  align="center">
             &nbsp;<asp:Button ID="btnReloadPage" runat="server" class="button" 
-                    onclick="btnReloadPage_Click" Text="RELOAD PAGE" />
+                    onclick="btnReloadPage_Click" Visible="false" Text="RELOAD PAGE" />
+
+                 <input id="Button1" type="button"  class="button" ng-click="changeValue2()" value="UPDATE BATCH " /> 
               </td>
           </tr>
          
@@ -217,6 +220,7 @@ padding-left:5px;
                  <th st-sort="title" class="tdcolheader"> PRODUCT TITLE</th>
                  <th st-sort="type" class="tdcolheader"> PT TYPE</th>
                  <th st-sort="reg_date" class="tdcolheader"> REG DATE</th>
+                 <th st-sort="Action" class="tdcolheader"> Action</th>
 
                 <th st-sort="reg_no" class="tdcolheader">View </th>
                 <th st-sort="reg_no" class="tdcolheader">Open New Tab</th>
@@ -236,7 +240,7 @@ padding-left:5px;
                  <td align="center">{{row.title}}</td>
                 <td align="center">{{row.type}}</td>
                  <td align="center">{{row.reg_date}}</td>
-                
+                 <td align="center"><span>Search Unit </span</span> <input type="checkbox"  {{row.description}} ng-checked="changeValue(row)" ng-model="row.description"></td>
                 <td align="center"><a href="n_renewal_details.aspx?x={{row.xID}}"><i class="fa fa-link"></i></a></td>
                 <td align="center"><a target="_blank"  href="n_renewal_details.aspx?x={{row.xID}}"><i class="fa fa-external-link"></i></a></td>
                

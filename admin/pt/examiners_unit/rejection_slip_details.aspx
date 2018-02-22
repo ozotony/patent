@@ -454,9 +454,9 @@ For further Details, you may wish to contact our personnel through an
 electronic mail to patentoffice@iponigeria.com
             <br /><br />
             REASON:<br /> </strong><%Response.Write(xreason.ToUpper()); %><br />
-                <img alt="Adewasiu" src="../signatures/aisha_acceptance_mini_png.png" style=" width: 116px;height: 55px;" /><br /><br />
-                    <strong> AISHA SALIHU
-                    (FOR THE REGISTRAR)
+                <img alt="Adewasiu" src="../signatures/sig2.jpg" style=" width: 130px;height: 100px;" /><br /><br />
+                    <strong> IGWE JANE
+                    (PRINCIPAL ASST. REGISTRAR 1)
                 <br />
                 TRADEMARK,PATENT AND DESIGN OFFICE ABUJA, NIGERIA</strong>
 

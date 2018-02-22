@@ -155,6 +155,40 @@ public class zues
         return str;
     }
 
+    public List<ApplicationOfficer2> ApplicationOff(string startdate, string enddate)
+    {
+        string str = "";
+        int sn = 1;
+
+        SqlConnection connection = new SqlConnection(this.Connect());
+        string format = "yyyy-MM-dd";
+        var kk = Convert.ToDateTime(startdate).Date.ToString(format);
+        var kk2 = Convert.ToDateTime(enddate).Date.ToString(format);
+        SqlCommand command = new SqlCommand("select pt_office.data_status,pt_office.reg_date,validationid,pwalletid ,xname  from pt_office inner JOIN xadminz_pt ON xadminz_pt.xID=pt_office.xofficer inner JOIN pwallet on pwallet.id =pt_office.pwalletID where  pt_office.reg_date BETWEEN  '" + kk + "' AND '" + kk2 + "' union  select pt_office.data_status,pt_office.reg_date,validationid,pwalletid ,xname  from pt_office inner JOIN xadminz_pt ON xadminz_pt.xID=pt_office.xofficer inner JOIN x_pwallet on x_pwallet.id =pt_office.pwalletID where  pt_office.reg_date BETWEEN  '" + kk + "' AND '" + kk2 + "'    ", connection);
+        connection.Open();
+        SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+        List<ApplicationOfficer2> xk = new List<ApplicationOfficer2>();
+        while (reader.Read())
+        {
+            ApplicationOfficer2 pp = new ApplicationOfficer2();
+            pp.data_status = reader["data_status"].ToString();
+            pp.sn = sn;
+            pp.reg_date = reader["reg_date"].ToString();
+
+            pp.Validationid = reader["validationid"].ToString();
+
+            pp.pwalletid = reader["pwalletid"].ToString();
+            pp.xname = reader["xname"].ToString();
+
+            sn++;
+
+            xk.Add(pp);
+        }
+        reader.Close();
+        connection.Close();
+        return xk;
+    }
+
     public string a_xadminz(string uname, string xpass, string serverpath)
     {
         string path = serverpath + @"\Handlers\bf.kez";
@@ -484,7 +518,7 @@ public class zues
         List<PtInfo> list = new List<PtInfo>();
         new PtInfo();
         SqlConnection connection = new SqlConnection(Connect());
-        SqlCommand command = new SqlCommand("select pt_info.xID,pt_info.reg_number,pt_info.title_of_invention,pt_info.xtype,pt_info.reg_date,pt_info.log_staff  from pt_info LEFT OUTER JOIN pwallet ON pt_info.log_staff=cast (pwallet.ID as  Varchar) WHERE pwallet.stage='5' AND pwallet.status >='" + status + "' order by pwallet.ID  ", connection);
+        SqlCommand command = new SqlCommand("select pt_info.xID,pt_info.reg_number,applicant.xname,pt_info.title_of_invention,pt_info.xtype,pt_info.reg_date,pt_info.log_staff  from pt_info LEFT OUTER JOIN pwallet ON pt_info.log_staff=cast (pwallet.ID as  Varchar)  LEFT OUTER JOIN  applicant ON pt_info.log_staff=applicant.log_staff WHERE pwallet.stage='5' AND pwallet.status >='" + status + "' order by pwallet.ID  ", connection);
         connection.Open();
         SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
         Int32 vsn = 0;
@@ -502,7 +536,8 @@ public class zues
                 log_staff = reader["log_staff"].ToString(),
                 reg_date = reader["reg_date"].ToString(),
                 Office = voffice,
-                Sn=Convert.ToString(vsn)
+                Sn=Convert.ToString(vsn) ,
+                xname = reader["xname"].ToString()
             };
             list.Add(item);
         }
@@ -842,7 +877,7 @@ public class zues
         List<PtInfo> list = new List<PtInfo>();
         new PtInfo();
         SqlConnection connection = new SqlConnection(Connect());
-        SqlCommand command = new SqlCommand("select pt_info.xID,pt_info.reg_number,pt_info.title_of_invention,pt_info.xtype,pt_info.reg_date,pt_info.log_staff from pt_info LEFT OUTER JOIN pwallet ON pt_info.log_staff=cast (pwallet.ID as  Varchar) WHERE pwallet.stage='5' AND pwallet.status='" + status + "' AND pwallet.data_status='" + data_status + "'  order by pt_info.upload_date desc ", connection);
+        SqlCommand command = new SqlCommand("select '' as  description, pt_info.xID,pt_info.reg_number,pt_info.title_of_invention,applicant.xname ,pt_info.xtype,pt_info.reg_date,pt_info.log_staff from pt_info inner  JOIN pwallet ON pt_info.log_staff=cast (pwallet.ID as  Varchar)  inner join  applicant ON pt_info.log_staff=applicant.log_staff WHERE pwallet.stage='5' AND pwallet.status='" + status + "' AND pwallet.data_status='" + data_status + "'  order by pt_info.upload_date desc ", connection);
         connection.Open();
         SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
         zues z = new zues();
@@ -867,15 +902,130 @@ public class zues
                 reg_date = reader["reg_date"].ToString(),
                 Validation = pvalidation,
                 Office = voffice,
-                Sn=Convert.ToString(sn)
+                Sn=Convert.ToString(sn),
+                moveapp = reader["description"].ToString(),
+                xname = reader["xname"].ToString()
             };
             list.Add(item);
         }
         reader.Close();
         return list;
     }
+    public int g_pwalletStatus2(string xID, string sent_status, string sent_status2)
+    {
+        SqlConnection connection = new SqlConnection(this.Connect());
+        SqlCommand command = connection.CreateCommand();
+        command.CommandText = "UPDATE pwallet SET status=@sent_status,data_status=@sent_status2 WHERE validationid=@xID ";
+        connection.Open();
+        command.Parameters.Add("@xID", SqlDbType.NVarChar, 50);
+        command.Parameters.Add("@sent_status", SqlDbType.NVarChar, 50);
+        command.Parameters.Add("@sent_status2", SqlDbType.NVarChar, 50);
+        command.Parameters["@xID"].Value = xID;
+        command.Parameters["@sent_status"].Value = sent_status;
+        command.Parameters["@sent_status2"].Value = sent_status2;
+        int num = command.ExecuteNonQuery();
+        connection.Close();
+        return num;
+    }
 
-   
+
+    public String CheckLogin(Login pp)
+    {
+        SqlConnection connection = new SqlConnection(this.Connect());
+
+        string str = "0";
+        string cmdText = "";
+        string xadmin = "";
+
+
+        cmdText = "SELECT count(*) as count FROM xadminz_pt  where CONVERT(VARCHAR, xemail)='" + pp.Email + "'  and CONVERT(VARCHAR, xpass) ='' ";
+
+        SqlCommand command = new SqlCommand(cmdText, connection)
+        {
+            CommandTimeout = 0
+        };
+        connection.Open();
+        SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+        while (reader.Read())
+        {
+            str = reader["count"].ToString();
+        }
+        int vcount = Convert.ToInt32(str);
+        if (vcount > 0)
+        {
+            xadmin = CheckLogin2(pp.Email);
+        }
+
+        else
+        {
+            xadmin = CheckLogin3(pp);
+        }
+
+        reader.Close();
+        connection.Close();
+
+        return xadmin;
+
+    }
+
+    public string CheckLogin2(string email)
+    {
+        string str = "";
+        SqlConnection connection = new SqlConnection(this.Connect());
+        SqlCommand command = new SqlCommand("SELECT xID from xadminz_pt where CONVERT(VARCHAR, xemail)='" + email + "'  and CONVERT(VARCHAR, xpass) =''", connection);
+        connection.Open();
+        SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+        while (reader.Read())
+        {
+            str = reader["xID"].ToString();
+        }
+        reader.Close();
+        connection.Close();
+        return str;
+    }
+
+    public string CheckLogin3(Login cf)
+    {
+        string str = "";
+
+        SqlConnection connection = new SqlConnection(this.Connect());
+        SqlCommand command = connection.CreateCommand();
+        command.CommandText = "INSERT INTO xadminz_pt (xroleID,xname,xemail,xpass) VALUES (@pwalletID,@response_deadline,@xofficerID,@xmsg) SELECT SCOPE_IDENTITY()";
+        connection.Open();
+        command.Parameters.Add("@pwalletID", SqlDbType.VarChar, 50);
+        command.Parameters.Add("@response_deadline", SqlDbType.VarChar, 50);
+        command.Parameters.Add("@xofficerID", SqlDbType.VarChar);
+        command.Parameters.Add("@xmsg", SqlDbType.VarChar);
+
+
+        command.Parameters["@pwalletID"].Value = "1";
+        command.Parameters["@response_deadline"].Value = cf.name;
+        command.Parameters["@xofficerID"].Value = cf.Email;
+        command.Parameters["@xmsg"].Value = "";
+
+        str = command.ExecuteScalar().ToString();
+        connection.Close();
+        return str;
+    }
+
+    public int g_pwalletStatus3(string xID, string sent_status, string sent_status2)
+    {
+        SqlConnection connection = new SqlConnection(this.Connect());
+        SqlCommand command = connection.CreateCommand();
+        command.CommandText = "UPDATE x_pwallet  SET status=@sent_status,data_status=@sent_status2 WHERE validationid=@xID ";
+        connection.Open();
+        command.Parameters.Add("@xID", SqlDbType.NVarChar, 50);
+        command.Parameters.Add("@sent_status", SqlDbType.NVarChar, 50);
+        command.Parameters.Add("@sent_status2", SqlDbType.NVarChar, 50);
+        command.Parameters["@xID"].Value = xID;
+        command.Parameters["@sent_status"].Value = sent_status;
+        command.Parameters["@sent_status2"].Value = sent_status2;
+        int num = command.ExecuteNonQuery();
+        connection.Close();
+        return num;
+    }
+
+
     public List<PtInfo> getPtInfoSlipPlusRS(string stage)
     {
         List<PtInfo> list = new List<PtInfo>();
@@ -1146,7 +1296,9 @@ public class zues
     {
         List<Renewal> list = new List<Renewal>();
         SqlConnection connection = new SqlConnection(Connect());
-        SqlCommand command = new SqlCommand(string.Concat(new object[] { "select renewal.last_rwl_date as 'cnt',renewal.agt_code , renewal.xID,renewal.reg_no,renewal.app_no,renewal.title,renewal.type,renewal.reg_date,renewal.log_staff,renewal.app_date  from renewal LEFT OUTER JOIN x_pwallet ON renewal.log_staff=x_pwallet.ID WHERE x_pwallet.stage='5' AND x_pwallet.status='", status, "' AND x_pwallet.data_status='", data_status, "' AND x_pwallet.item_code='", item_code, "'  order by  x_pwallet.ID " }), connection);
+       // SqlCommand command = new SqlCommand(string.Concat(new object[] { "select renewal.last_rwl_date as 'cnt',renewal.agt_code , renewal.xID,renewal.reg_no,renewal.app_no,renewal.title,renewal.type,renewal.reg_date,renewal.log_staff,renewal.app_date  from renewal LEFT OUTER JOIN x_pwallet ON renewal.log_staff=x_pwallet.ID WHERE x_pwallet.stage='5' AND x_pwallet.status='", status, "' AND x_pwallet.data_status='", data_status, "' AND x_pwallet.item_code='", item_code, "'  order by  x_pwallet.ID " }), connection);
+
+        SqlCommand command = new SqlCommand(string.Concat(new object[] { "select '' as  description,x_pwallet.validationID, renewal.last_rwl_date as 'cnt',renewal.agt_code , renewal.xID,renewal.reg_no,renewal.app_no,renewal.title,renewal.type,renewal.reg_date,renewal.log_staff,renewal.app_date  from renewal LEFT OUTER JOIN x_pwallet ON renewal.log_staff=x_pwallet.ID WHERE x_pwallet.stage='5' AND x_pwallet.status='", status, "' AND x_pwallet.data_status='", data_status, "'   order by  x_pwallet.ID " }), connection);
         connection.Open();
         SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
         Int32 vsn = 0;
@@ -1183,7 +1335,10 @@ public class zues
 
                 Sn =Convert.ToString(vsn),
                 agt_code = reader["agt_code"].ToString() ,
-                Due_Date = dd.ToString(format)
+                Due_Date = dd.ToString(format),
+                moveapp = reader["description"].ToString(),
+                validationID = reader["validationID"].ToString()
+
 
             };
             list.Add(item);
@@ -1633,6 +1788,14 @@ public class zues
         public string Office { get; set; }
 
         public string Sn { get; set; }
+
+        public string xname { get; set; }
+
+        public string description { get; set; }
+
+        public string moveapp { get; set; }
+
+
     }
 
     public class PtOffice
@@ -1683,6 +1846,8 @@ public class zues
 
     public class Renewal
     {
+       
+          public string validationID { get; set; }
         public string agt_addy { get; set; }
 
         public string agt_code { get; set; }
@@ -1732,6 +1897,10 @@ public class zues
 
        
         public string Sn { get; set; }
+
+        public string description { get; set; }
+
+        public string moveapp { get; set; }
     }
 
     public class Renewal2

@@ -19,6 +19,13 @@ public partial class  admin_pt_examiners_unit_profile : Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Request.Form["adminx"] != null)
+        {
+            String vvv = Request.Form["adminx"];
+
+            Session["pwalletID"] = vvv;
+
+        }
         if (this.Session["pwalletID"] != null)
         {
             if (this.Session["pwalletID"].ToString() != "")

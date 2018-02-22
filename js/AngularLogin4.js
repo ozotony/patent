@@ -1,7 +1,7 @@
 ﻿var app = angular.module('myModule', ['smart-table', 'angular-loading-bar', 'ngCsv']);
 var serviceBaseIpo = 'http://ipo.cldng.com/';
 
-var serviceBasePatent = 'http://pt.cldng.com/';
+var serviceBasePatent = 'http://45.40.139.163/EinaoTestEnvironment.Patent/';
 app.filter('offset', function () {
     return function (input, start) {
         start = parseInt(start, 10);

@@ -269,8 +269,8 @@ color:#E36C0A;mso-themecolor:accent6;mso-themeshade:191">CERTIFICATE OF RENEWAL 
                                <%-- <img alt="Signature" class="style1" src="../signatures/sig.jpg" />--%>
                                <br />
 
-                            CHINYERE AGBAI (DCR II )<br />
-For: The Registrar of Patents and Designs<br />
+                            CHINYERE AGBAI <br />
+For: Acting Director / Registrar<br />
 </strong>
 
                         </td>

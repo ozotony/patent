@@ -639,9 +639,16 @@ public partial class xindex: System.Web.UI.Page
                             {
                                
                                 ws_payx.payxSoapClient ws_p = new ws_payx.payxSoapClient();
+                            try
+                            {
                                 status = Convert.ToString(ws_p.UpdateHwallet(hwalletID, "Used", xreg_date, txt_title_of_invention.Text));
-                              
-                             
+
+                            }
+
+                            catch(Exception ee)
+                            {
+                                status = "1";
+                            }
                             }
                             else
                             {
@@ -745,8 +752,15 @@ public partial class xindex: System.Web.UI.Page
                         if ((hwalletID != null) && (Convert.ToInt32(hwalletID) > 0))
                         {
                             ws_payx.payxSoapClient ws_p = new ws_payx.payxSoapClient();
+                        try
+                        {
                             status = Convert.ToString(ws_p.UpdateHwallet(hwalletID, "Used", xreg_date, txt_title_of_invention.Text));
+                        }
+                        catch(Exception ee)
+                        {
+                            status = "1";
 
+                        }
                           //  status = "1";
                           
                         }

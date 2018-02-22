@@ -204,6 +204,7 @@ padding-left:5px;
             <tr>
                  <th  class="tdcolheader">S/N</th>
                 <th st-sort="reg_number" class="tdcolheader">REGISTRATION NUMBER</th>
+                 <th st-sort="reg_number" class="tdcolheader">APPLICANT NAME</th>
                 <th st-sort="title_of_invention" class="tdcolheader">PRODUCT TITLE</th>
                  <th st-sort="xtype" class="tdcolheader"> PT TYPE</th>
                  <th st-sort="Validation" class="tdcolheader"> OAI No.</th>
@@ -213,12 +214,13 @@ padding-left:5px;
 
                  <th st-sort="reg_no" class="tdcolheader">View </th>
                 <th st-sort="reg_no" class="tdcolheader">Open New Tab</th>
+                 <th st-sort="reg_no" class="tdcolheader">Acceptance Letter</th>
                  
                   
 
             </tr>
             <tr>
-                <th colspan="9"><input st-search="" class="form-control" placeholder="global search ..." type="text" /></th>
+                <th colspan="10"><input st-search="" class="form-control" placeholder="global search ..." type="text" /></th>
             </tr>
         </thead>
         <tbody>
@@ -226,13 +228,15 @@ padding-left:5px;
                
                 <td align="center">{{row.Sn}}</td>
                 <td align="center">{{row.reg_number}}</td>
+                 <td align="center">{{row.xname}}</td>
                 <td align="center">{{row.title_of_invention}}</td>
                  <td align="center">{{row.xtype}}</td>
                 <td align="center">{{row.Validation}}</td>
                  <td align="center">{{row.reg_date}}</td>
                  <td align="center">{{row.Office}}</td>
-                <td align="center"><a href="acceptance_slip_details.aspx?x={{row.xID}}"><i class="fa fa-link"></i></a></td>
-                <td align="center"><a target="_blank"  href="acceptance_slip_details.aspx?x={{row.xID}}"><i class="fa fa-external-link"></i></a></td>
+                <td align="center"><a href="acceptance_details2.aspx?x={{row.xID}}"><i class="fa fa-link"></i></a></td>
+                <td align="center"><a target="_blank"  href="acceptance_details2.aspx?x={{row.xID}}"><i class="fa fa-external-link"></i></a></td>
+                 <td align="center"><a target="_blank"  href="acceptance_slip_details.aspx?x={{row.xID}}"><i class="fa fa-external-link"></i></a></td>
                
 
                
@@ -246,7 +250,7 @@ padding-left:5px;
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="9" class="text-center">
+                <td colspan="10" class="text-center">
                     <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
                 </td>
             </tr>
