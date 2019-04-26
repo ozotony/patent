@@ -271,13 +271,13 @@ color:#E36C0A;mso-themecolor:accent6;mso-themeshade:191">CERTIFICATE OF RENEWAL 
                             <br />
                           
                                
-                                 <b> <img alt="Signature"  src="../signatures/renewal5.jpg" /> </b>
+                                 <b>    <asp:image id="img" Width="204px" Height="182px"  runat="server" /> </b>
                          <%--   <img alt="Signature" class="style1" src="../signatures/aisha_acceptance_mini_png.png" />--%>
                                <%-- <img alt="Signature" class="style1" src="../signatures/sig.jpg" />--%>
                                <br />
 
-                            STELLA OZO EZENDUKA <br />
-DEPUTY CHIEF REGISTRAR<br />
+                <asp:Label ID="vame" runat="server" />             <br />
+ <asp:Label ID="vame2" runat="server" />  <br />
 </strong>
 
                         </td>

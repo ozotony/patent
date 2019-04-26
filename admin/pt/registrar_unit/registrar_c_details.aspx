@@ -89,7 +89,7 @@
             <td align="left" colspan="2">
             <div style="padding-left:10px;padding-right:10px;padding-top:5px;padding-bottom:5px;">
                 President of the Federal Republic of Nigeria and commander-in-Chief of the armed forces<br /> 
-                <strong>DR. GOODLUCK EBELE JONATHAN</strong><br /> 
+                <strong>Muhammadu Buhari</strong><br /> 
                 WHEREAS a request for the grant of a patent has been made by:<br />      
                         <div style="background-color:#999999; font-weight:bold;">PRIMARY APPLICANT</div>
                          <% Response.Write(lt_app[0].xname); %><br />
@@ -119,13 +119,13 @@ Accordingly:
                
                 <div style="text-align:right;">
                     <%--  <img alt="sign" class="style1" src="../signatures/Adeyemi.jpg"/> --%>
-                     <img alt="Signature" class="style1" src="../signatures/aisha_acceptance_mini_png.png" />
+                     <img alt="Signature" class="style1" src="../signatures/signature2.png" />
 
                    <%-- <img alt="sign" class="style1" src="../signatures/sig.jpg"/>--%>
 
                 </div><br />
                 
-                <div  ><strong>L.S.</strong>  <span style="padding-left:760px;"><strong> Acting Director / Registrar</strong> </span></div> 
+                <div  ><strong>L.S.</strong>  <span style="padding-left:760px;">Stella Ozo Ezenduka <br /> <strong> </strong> </span>  <span style="padding-left:760px;"><strong> Registrar</strong> </span></div> 
                 </div></td>
         </tr>       
     </table>

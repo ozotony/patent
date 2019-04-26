@@ -264,13 +264,14 @@ color:#E36C0A;mso-themecolor:accent6;mso-themeshade:191">CERTIFICATE OF RENEWAL 
                            <strong>
                                &nbsp;&nbsp; This is to certify that patent, as numbered above has been renewed for a further period of one year as from the due date,<br /> the payment of the requisite fee having been made. 
                             <br />
-                          
-                            <img alt="Signature" class="style1" src="../signatures/aisha_acceptance_mini_png.png" />
+                           <b>    <asp:image id="img" Width="204px" Height="182px"  runat="server" /> </b>
+                          <%--   <img alt="Signature" class="style1" src="../signatures/aisha_acceptance_mini_png.png" /> --%>
                                <%-- <img alt="Signature" class="style1" src="../signatures/sig.jpg" />--%>
                                <br />
-
-                            CHINYERE AGBAI <br />
-For: Acting Director / Registrar<br />
+ <asp:Label ID="vame" runat="server" />             <br />
+                         <%--    CHINYERE AGBAI <br />  --%>
+ <asp:Label ID="vame2" runat="server" />  <br />
+<%--  For: Acting Director / Registrar<br />  --%>
 </strong>
 
                         </td>

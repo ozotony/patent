@@ -18,7 +18,7 @@ PATENT APPLICATION NOTICE
     <script  type="text/javascript">
 
         function doProceed() {
-            postwith('./n_renewal.aspx', { transID: '<%=transID %>', amt: '<%=amt %>', agt: '<%=agt %>', xgt: '<%=xgt %>', applicantname: '<%=applicantname %>', applicantemail: '<%=applicantemail  %>', applicantpnumber: '<%=applicantpnumber %>', agentname: '<%=agentname %>', agentemail: '<%=agentemail  %>', agentpnumber: '<%=agentpnumber %>', payment_date: '<%=payment_date  %>', product_title: '<%=product_title %>', item_code: '<%=item_code %>', serverpath: '<%=serverpath %>' });
+            postwith('./n_renewal.aspx', { transID: '<%=transID %>', amt: '<%=amt %>', agt: '<%=agt %>', xgt: '<%=xgt %>', applicantname: '<%=applicantname.Replace("'", @"\'") %>', applicantemail: '<%=applicantemail  %>', applicantpnumber: '<%=applicantpnumber %>', agentname: '<%=agentname %>', agentemail: '<%=agentemail  %>', agentpnumber: '<%=agentpnumber %>', payment_date: '<%=payment_date  %>', product_title: '<%=product_title %>', item_code: '<%=item_code %>', serverpath: '<%=serverpath %>' });
         }
     </script>
 

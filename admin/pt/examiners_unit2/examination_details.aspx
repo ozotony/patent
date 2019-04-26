@@ -1,40 +1,62 @@
-﻿<%@ page language="C#" autoeventwireup="true"  CodeFile="acceptance_slip_details.cs"  inherits="admin_pt_examiners_unit_acceptance_slip_details " %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="examination_details.aspx.cs" Inherits="admin_pt_examiners_unit2_examination_details" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="formApp">
 <head runat="server">
     <title></title>
-<link href="../../../css/print_style.css" rel="stylesheet" type="text/css" />
+    <link href="../../../css/style.css" rel="stylesheet" type="text/css" />
 
 <script src="../../../js/funk.js" type="text/javascript"></script>
-    <style type="text/css">
-        .auto-style1 {
-            width: 125px;
-            height: 100px;
+    <script src="../../../Scripts/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <script src="../../../Scripts/angular.js"  type="text/javascript"></script>
+
+  
+   <%-- <script src="../../../js/angular-sanitize.min.js" type="text/javascript"></script>--%>
+    <script src="../../../Scripts/angular-sanitize.min.js" type="text/javascript"></script>
+    <script src="../../../Scripts/App3.js" type="text/javascript"></script>
+    <script src="../../../Scripts/ng-wig.min.js" type="text/javascript"></script>
+    <script src="../../../js/sweet-alert.min.js" type="text/javascript"></script>
+    <link href="../../../css/sweet-alert.css" rel="stylesheet" />
+    <link href="../../../css/ng-wig.css" rel="stylesheet" />
+    <script src="../../../js/ng-modal.min.js" type="text/javascript"></script>
+    <link href="../../../css/ng-modal.css" rel="stylesheet" />
+
+     <style type="text/css">
+
+        .form table a {
+            color: black;
         }
     </style>
 </head>
-<body>
+<body  ng-controller="formController">
     <form id="form1" runat="server">
     <div>
     <div class="container">
         <div class="sidebar">
             <a href="./profile.aspx">PROFILE</a> 
             <a href="../../../cp.aspx?x=<% Response.Write(admin); %>">CHANGE PASSWORD</a> 
-            <a href="./profile.aspx">VIEW STATISTICS</a>
-            <a href="./acceptance_slip.aspx">VIEW SLIPS</a>
-             <a href="../lo.aspx" >LOG OFF</a>
+            <a href="./eed.aspx">VIEW STATISTICS</a>
         </div>
         <div class="content">
-          
+            <div class="adminheader">
+                <div class="xmenu">
+                    <div class="menu">
+                        <ul>
+                            <li><a href="../lo.aspx">
+                                <img alt="" src="../../../images/logoff.png" width="16" height="16" />Log off</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
             <div id="searchform">
     
      <table align="center"  style="width:100%;" class="form" >
             <tr id="xdets">
             <td>
-            <table align="center" width="1000px" class="form" >    
-        <tr>
+            <table align="center" width="100%"  class="form">
+         <tr>
             <td colspan="2" align="center" >
              <img alt="Coat Of Arms" height="79" src="../../../images/coat_of_arms.png" 
                         width="85" /><br />
@@ -42,8 +64,7 @@
                     FEDERAL MINISTRY OF INDUSTRY, TRADE AND INVESTMENT<br />
                     COMMERCIAL LAW DEPARTMENT<br />
                     TRADEMARKS, PATENTS AND DESIGNS REGISTRY<br />
-                    PATENTS AND DESIGNS DECREE NO 60 OF 1970<br />
-                   <div style="font-size:22px;"><strong>ACCEPTANCE LETTER</strong></div> 
+                    PATENTS AND DESIGNS DECREE NO 60 OF 1970
             </td>
         </tr>       
         
@@ -399,130 +420,140 @@
         </tr>
         <tr>
             <td align="right">
-                 <%if (lt_mi[0].loa_doc == "")
-              { %>
                LETTER OF AUTHORIZATION OF AGENT(FORM 2) :
-                <%}
-                    else
-                    { %>
-              <a href="../<%=lt_mi[0].loa_doc %>" style="text-decoration:none; color:#000;" target="_blank"> LETTER OF AUTHORIZATION OF AGENT(FORM 2) :</a>
-                <%} %>
             </td>
             <td >
-            <%if (lt_mi[0].loa_doc == "")
-              { %> NOT ATTACHED<%}
-              else
-              { %> ATTACHED<%} %></td>
+            <% if (lt_mi[0].loa_doc != "")
+               {
+                   Response.Write("<a href=../" + lt_mi[0].loa_doc + " target='_blank' style='color:#000;'>View</a>");        
+         }  else { Response.Write("NONE"); 
+               } %></td>
         </tr>
         
         <tr>
             <td align="right">
-                 <%if (lt_mi[0].claim_doc == "")
-              { %>
-                CLAIM(S) :
-                <%}
-                    else
-                    { %>
-                  <a href="../<%=lt_mi[0].claim_doc %>" style="text-decoration:none; color:#000;" target="_blank">CLAIM(S) :</a>
-                <%} %>
-            </td>
+                CLAIM(S) :</td>
             <td >
-                <%if (lt_mi[0].claim_doc == "")
-                  { %> NOT ATTACHED<%}
-                  else
-                  { %> ATTACHED<%} %></td>
+                 <% if (lt_mi[0].claim_doc != "")
+               {
+                   Response.Write("<a href=../" + lt_mi[0].claim_doc + " target='_blank' style='color:#000;' >View</a>");        
+         }  else { Response.Write("NONE"); 
+               } %></td>
         </tr>
         
         <tr>
             <td align="right">
-                 <%if (lt_mi[0].pct_doc == "")
-              { %>
-                PCT DOCUMENT:
-                <%}
-                    else
-                    { %>
-                 <a href="../<%=lt_mi[0].pct_doc %>" style="text-decoration:none; color:#000;" target="_blank">PCT DOCUMENT:</a>
-                <%} %>
-            </td>
+                PCT DOCUMENT:</td>
             <td >
-                  <%if (lt_mi[0].pct_doc == "")
-                    { %> NOT ATTACHED<%}
-                    else
-                    { %> ATTACHED<%} %></td>
+                    <% if (lt_mi[0].pct_doc != "")
+               {
+                   Response.Write("<a href=../" + lt_mi[0].pct_doc + " target='_blank' style='color:#000;'>View</a>");        
+         }  else { Response.Write("NONE"); 
+               } %></td>
         </tr>
         
         <tr>
             <td align="right">
-                 <%if (lt_mi[0].doa_doc == "")
-                    { %>
-                DEED OF ASSIGNMENT:
-                <%}
-                    else
-                    { %>
-                 <a href="../<%=lt_mi[0].doa_doc %>" style="text-decoration:none; color:#000;" target="_blank">DEED OF ASSIGNMENT:</a>
-                <%} %>
-            </td>
+                DEED OF ASSIGNMENT:</td>
             <td >
-                  <%if (lt_mi[0].doa_doc == "")
-                    { %> NOT ATTACHED<%}
-                    else
-                    { %> ATTACHED<%} %></td>
+                  <% if (lt_mi[0].doa_doc != "")
+               {
+                   Response.Write("<a href=../" + lt_mi[0].doa_doc + " target='_blank' style='color:#000;'>View</a>");        
+         }  else { Response.Write("NONE"); 
+               } %></td>
         </tr>
         
         <tr>
             <td align="right">
-                <%if (lt_mi[0].spec_doc == "")
-                    { %>
-                COMPLETE SPECIFICATION (FORM 3):
-                <%}
-                    else
-                    { %>
-                 <a href="../<%=lt_mi[0].spec_doc %>" style="text-decoration:none; color:#000;" target="_blank">COMPLETE SPECIFICATION (FORM 3):</a>
-                <%} %>
-            </td>
+                COMPLETE SPECIFICATION (FORM 3):</td>
             <td >
-                  <%if (lt_mi[0].spec_doc == "")
-                    { %> NOT ATTACHED<%}
-                    else
-                    { %> ATTACHED<%} %></td>
+                  <% if (lt_mi[0].spec_doc != "")
+               {
+                   Response.Write("<a href=../" + lt_mi[0].spec_doc + " target='_blank' style='color:#000;'>View</a>");        
+         }  else { Response.Write("NONE"); 
+               } %></td>
         </tr>
         <%}%>
         <tr>
-            <td class="tbbg" colspan="2" style="color: #fff; background-color: #006600; text-align: center; font-weight: bold;">
+            <td  colspan="2" style="color: #fff; text-align: center; font-weight: bold;">
               
                 &nbsp;</td>
         </tr>
+         <tr>
+            <td class="tbbg" colspan="2" align="center">
+                &nbsp;
+                -- PREVIOUS ADMINISTRATOR'S COMMENT --</td>
+        </tr>
+        <% Response.Write(xcomments); %>      
+        
         <tr>
-            <td  align="center" colspan="2">
+            <td class="tbbg" colspan="2">--- ACTION ---</td>
+        </tr>
+        <tr>
+            <td align="center"  colspan="2"> <asp:RadioButtonList ID="rbValid" runat="server" RepeatDirection="Horizontal" onselectedindexchanged="rbValid_SelectedIndexChanged" AutoPostBack="True">
+                      <asp:ListItem Value="Futher Review" >Examined For Futher Review</asp:ListItem>
+                      <asp:ListItem Value="Further Search">For Further Search</asp:ListItem>
+                      <asp:ListItem Value="E_Contact">KIV</asp:ListItem>
+                       <asp:ListItem Value="Refused">Refuse </asp:ListItem>
+                       <asp:ListItem Value="Patentable">Accept</asp:ListItem>
+                       <asp:ListItem Value="Ping" >Ping Agent</asp:ListItem>
+                </asp:RadioButtonList>
+            </td>
+        </tr>
+        <tr>
+            <td class="tbbg" colspan="2" align="center">  --- ADD COMMENT --- </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2">
+                <asp:TextBox ID="comment" runat="server" Height="50px" TextMode="MultiLine" Width="98%"></asp:TextBox>
+                 <table class="table tt2" id="rich" Width="98%"> 
+              <tr>
+                  <td> <textarea ng-wig="model.content"    ></textarea>  </td>
+
+              </tr>
+
+        <tr>
+                  <td>
+                      
+                      
+                      <input id="Button1" type="button" ng-click="add3(model.content)" value="Update" />  </td>
+
+              </tr>
+
+
+              </table>
+            </td>
+
               
-             <strong>Your application has been accepted and is being processed for grant of a patent</strong>
-             <br />
-             <%--  <img alt="Adewasiu" src="../signatures/aisha_acceptance_mini_png.png" style=" width: 116px;height: 55px;" />--%>
-               <b>  <img alt="Adewasiu" src="../signatures/sig3.jpg" style=" -webkit-filter: grayscale(100%);filter: gray;filter: grayscale(100%);background-color:black"  /> </b>
-                <br />
-                <strong> BRIGHT C.ONYEBINANMA
-                    (Senior Assistant Registrar 1 )
-                <br />
-              </strong>
-             </td>
         </tr>
         
-         
+        <tr>
+            <td class="tbbg" colspan="2">
+                &nbsp;</td>
+        </tr>
+     
     </table>
             </td>
             </tr>
 			
 			 <tr>
             <td align="center">
-                <input type="button" name="Printform" id="Button1" value="Print" onclick="printAssessment('xdets');return false" class="button" />
+                 <asp:Button ID="Refuse" runat="server" Text="Refuse" OnClick="Refuse_Click" class="button" />
+                <input type="button" name="Printform" id="Printform" value="Print" onclick="printAssessment('xdets');return false" class="button" />
+                <asp:Button ID="Verify" runat="server" Text="Update" OnClick="Verify_Click" class="button" />
             </td>
         </tr>
             </table>
-        </div>       
-
+        </div>
     </div>
 </div>
 </div>
+         <input id="xname" name="xname" type="hidden" runat="server" />
+                  <input id="xname2" name="xname2" type="hidden" runat="server" />
+                <input id="xname3" name="xname3" type="hidden" runat="server" />
+                 <input id="xname4" name="xname3" type="hidden" runat="server" />
+             <input id="xname5" name="xname5" type="hidden" runat="server" />
+
     </form>
 </body>
 </html>

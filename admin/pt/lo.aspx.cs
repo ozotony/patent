@@ -132,6 +132,10 @@ public partial class admin_pt_lo : Page
                         {
                             Response.Redirect("./acceptance_unit/profile.aspx");
                         }
+                        else if (str3 == "8")
+                        {
+                            Response.Redirect("./examiners_unit2/profile.aspx");
+                        }
                         else if (str3 == "6")
                         {
                             Response.Redirect("./registrar_unit/profile_index.aspx");

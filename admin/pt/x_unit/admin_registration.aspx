@@ -321,6 +321,25 @@
                 </asp:DropDownList>
             </td>
         </tr>
+
+                  <tr>
+            <td align="left">
+                &nbsp;&nbsp;Designation&nbsp; :
+            </td>
+            <td align="left">
+                <asp:TextBox ID="Designation" runat="server" Width="400px" CssClass="textbox" ></asp:TextBox>
+            </td>
+        </tr>
+
+                   <tr>
+            <td align="left">
+                &nbsp;&nbsp;Upload Signature&nbsp; :
+            </td>
+            <td align="left">
+                 <asp:FileUpload ID="sup_doc2" runat="server" />
+                 <asp:TextBox ID="FilePath" runat="server" Width="600px"  CssClass="textbox" ></asp:TextBox>
+            </td>
+        </tr>
         
                 
         <tr>

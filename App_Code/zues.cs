@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Web.UI.WebControls;
 
 public class zues
 {
@@ -325,11 +326,11 @@ public class zues
         return num;
     }
 
-    public int e_regadmin(string xname, string xpass, string xrole, string xemail, string telephone1, string telephone2, string xsection, string pwalletID, string xID, string visible)
+    public int e_regadmin(string xname, string xpass, string xrole, string xemail, string telephone1, string telephone2, string xsection, string pwalletID, string xID, string visible , FileUpload sup_doc2, string serverpath, string Designation)
     {
         SqlConnection connection = new SqlConnection(Connect());
         SqlCommand command = connection.CreateCommand();
-        command.CommandText = "UPDATE xadminz_pt SET xname=@xname,xpass=@xpass,xroleID=@xroleID,xemail=@xemail,xtelephone1=@xtelephone1,xtelephone2=@xtelephone2,xsection=@xsection,xlog_officer=@pwalletID,xvisible=@xvisible WHERE xID=@xID ";
+        command.CommandText = "UPDATE xadminz_pt SET xname=@xname,xpass=@xpass,xroleID=@xroleID,xemail=@xemail,xtelephone1=@xtelephone1,xtelephone2=@xtelephone2,xsection=@xsection,xlog_officer=@pwalletID,xvisible=@xvisible,Designation=@Designation WHERE xID=@xID ";
         connection.Open();
         command.Parameters.Add("@xID", SqlDbType.BigInt);
         command.Parameters.Add("@xname", SqlDbType.NVarChar);
@@ -338,6 +339,7 @@ public class zues
         command.Parameters.Add("@xemail", SqlDbType.Text);
         command.Parameters.Add("@xtelephone1", SqlDbType.NVarChar, 50);
         command.Parameters.Add("@xtelephone2", SqlDbType.NVarChar, 50);
+        command.Parameters.Add("@Designation", SqlDbType.NVarChar, 500);
         command.Parameters.Add("@xsection", SqlDbType.NVarChar, 50);
         command.Parameters.Add("@pwalletID", SqlDbType.NVarChar, 50);
         command.Parameters.Add("@xvisible", SqlDbType.NVarChar, 1);
@@ -345,6 +347,7 @@ public class zues
         command.Parameters["@xname"].Value = xname;
         command.Parameters["@xpass"].Value = xpass;
         command.Parameters["@xroleID"].Value = xrole;
+        command.Parameters["@Designation"].Value = Designation;
         command.Parameters["@xemail"].Value = xemail;
         command.Parameters["@xtelephone1"].Value = telephone1;
         command.Parameters["@xtelephone2"].Value = telephone2;
@@ -357,7 +360,29 @@ public class zues
         {
             num = Convert.ToInt32(xID);
         }
-        return num;
+
+        if ((sup_doc2.HasFile) && num > 0)
+        {
+           var  path = serverpath + "admin/pt/signatures/";
+            
+            var newfilename = num + sup_doc2.FileName;
+            sup_doc2.SaveAs(path  + "/" + newfilename);
+            var path2 = "/signatures/" + newfilename;
+
+            connection = new SqlConnection(Connect());
+            command = connection.CreateCommand();
+            command.CommandText = "UPDATE xadminz_pt SET FilePath=@xname WHERE xID=@xID ";
+            connection.Open();
+            command.Parameters.Add("@xID", SqlDbType.BigInt);
+            command.Parameters.Add("@xname", SqlDbType.NVarChar);
+           
+            command.Parameters["@xID"].Value = xID;
+            command.Parameters["@xname"].Value = path2;
+            int  num2 = command.ExecuteNonQuery();
+            connection.Close();
+
+        }
+            return num;
     }
 
     public int e_X_PwalletLogStatus(string xID, string xcode)
@@ -563,6 +588,7 @@ public class zues
             adminz.xroleID = reader["xroleID"].ToString();
             adminz.xname = reader["xname"].ToString();
             adminz.xemail = reader["xemail"].ToString();
+            adminz.Designation = reader["Designation"].ToString();
             adminz.xpass = reader["xpass"].ToString();
             adminz.xtelephone1 = reader["xtelephone1"].ToString();
             adminz.xtelephone2 = reader["xtelephone2"].ToString();
@@ -570,6 +596,7 @@ public class zues
             adminz.xlog_officer = reader["xlog_officer"].ToString();
             adminz.xreg_date = reader["xreg_date"].ToString();
             adminz.xvisible = reader["xvisible"].ToString();
+            adminz.FilePath = reader["FilePath"].ToString();
         }
         reader.Close();
         return adminz;
@@ -719,6 +746,21 @@ public class zues
         while (reader.Read())
         {
             str = reader["priv"].ToString();
+        }
+        reader.Close();
+        return str;
+    }
+
+    public string getRoleName(string ID)
+    {
+        string str = "0";
+        SqlConnection connection = new SqlConnection(Connect());
+        SqlCommand command = new SqlCommand("SELECT name from roles where priv='" + ID + "'", connection);
+        connection.Open();
+        SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+        while (reader.Read())
+        {
+            str = reader["name"].ToString();
         }
         reader.Close();
         return str;
@@ -1554,6 +1596,7 @@ public class zues
             adminz.xlog_officer = reader["xlog_officer"].ToString();
             adminz.xreg_date = reader["xreg_date"].ToString();
             adminz.xvisible = reader["xvisible"].ToString();
+            adminz.FilePath = reader["FilePath"].ToString();
         }
         reader.Close();
         return adminz;
@@ -1710,6 +1753,7 @@ public class zues
         public string xlog_officer { get; set; }
 
         public string xname { get; set; }
+        public string Designation { get; set; }
 
         public string xpass { get; set; }
 
@@ -1724,6 +1768,7 @@ public class zues
         public string xtelephone2 { get; set; }
 
         public string xvisible { get; set; }
+        public string FilePath { get; set; }
     }
 
     public class Contact_form

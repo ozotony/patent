@@ -556,10 +556,13 @@ public class pt
             if (c_pt.xtype.ToUpper() == "NON-CONVENTIONAL")
             {
                 str8 = string.Concat(new object[] { "NG/PT/NC/", DateTime.Today.Date.ToString("yyyy"), "/", num2 });
-            }
+          //  str8 = string.Concat(new object[] { "F/PT/C/", DateTime.Today.Date.ToString("yyyy"), "/", num2 });
+
+        }
             else
             {
-                str8 = string.Concat(new object[] { "NG/PT/C/", DateTime.Today.Date.ToString("yyyy"), "/", num2 });
+         //   str8 = string.Concat(new object[] { "F/PT/C/", DateTime.Today.Date.ToString("yyyy"), "/", num2 });
+            str8 = string.Concat(new object[] { "NG/PT/C/", DateTime.Today.Date.ToString("yyyy"), "/", num2 });
             }
             using (connection = new SqlConnection(connectionString))
             {
@@ -2780,11 +2783,172 @@ public class pt
         return list;
     }
 
+
+    public List<Recordal> getG_PwalletByID3(Int32 ValidationID)
+    {
+        List<Recordal> pp2 = new List<Recordal>();
+        SqlConnection connection = new SqlConnection(this.Connect());
+        SqlCommand command = new SqlCommand("SELECT * FROM Recordal WHERE ID='" + ValidationID + "' ", connection);
+        connection.Open();
+        SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+        foreach (SqlParameter Parameter in command.Parameters)
+        {
+            if (Parameter.Value == null)
+            {
+                Parameter.Value = DBNull.Value;
+            }
+        }
+        while (reader.Read())
+        {
+            Recordal pp = new Recordal();
+           
+           
+           
+              
+      
+           
+            
+            try
+            {
+                pp.RECORDAL_REQUEST_DATE = Convert.ToDateTime(reader["RECORDAL_REQUEST_DATE"]);
+            }
+            catch (Exception ee)
+            {
+
+            }
+            try
+            {
+
+
+                pp.RECORDAL_APPROVE_DATE = Convert.ToDateTime(reader["RECORDAL_APPROVE_DATE"]);
+            }
+
+            catch (Exception ee)
+            {
+
+            }
+            try
+            {
+                pp.AMOUNT = reader["AMOUNT"].ToString();
+            }
+            catch (Exception ee)
+            {
+
+            }
+
+            try
+            {
+                pp.TRANSACTIONID = reader["TRANSACTIONID"].ToString();
+            }
+            catch (Exception ee)
+            {
+
+            }
+            try
+            {
+                pp.OFFICER = reader["XOFFICER"].ToString();
+            }
+            catch (Exception ee)
+            {
+                pp.OFFICER = null;
+            }
+            try
+            {
+                pp.VSTATUS = reader["STATUS"].ToString();
+            }
+            catch (Exception ee)
+            {
+
+            }
+
+
+           
+
+
+           
+
+            try
+            {
+                pp.RECORDAL_TYPE = reader["RECORDAL_TYPE"].ToString();
+            }
+            catch (Exception ee)
+            {
+
+            }
+
+            try
+            {
+                pp.Xcomment = reader["Xcomment"].ToString();
+            }
+            catch (Exception ee)
+            {
+
+            }
+
+           
+
+           
+
+           
+
+           
+
+          
+
+
+         
+
+
+
+            
+
+            
+
+            try
+            {
+                pp.data_status2 = reader["data_status2"].ToString();
+            }
+            catch (Exception ee)
+            {
+
+            }
+
+        
+
+
+
+           
+
+
+
+            pp2.Add(pp);
+
+        }
+        reader.Close();
+        connection.Close();
+        return pp2;
+    }
+
     public string getPwalletID(string validationID)
     {
         string str = "";
         SqlConnection connection = new SqlConnection(Connect());
         SqlCommand command = new SqlCommand("SELECT ID FROM pwallet WHERE validationID='" + validationID + "' ", connection);
+        connection.Open();
+        SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+        while (reader.Read())
+        {
+            str = Convert.ToInt64(reader["ID"]).ToString();
+        }
+        reader.Close();
+        return str;
+    }
+
+    public string getPwalletID22(string validationID)
+    {
+        string str = "";
+        SqlConnection connection = new SqlConnection(Connect());
+        SqlCommand command = new SqlCommand("SELECT ID FROM pwallet WHERE ID='" + validationID + "' ", connection);
         connection.Open();
         SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
         while (reader.Read())
@@ -2842,6 +3006,28 @@ public class pt
                 log_staff = reader["log_staff"].ToString(),
                 visible = reader["visible"].ToString(),
                 sync = reader["sync"].ToString()
+            };
+        }
+        reader.Close();
+        return renewal;
+    }
+
+
+    public Applicant_Recordal getApplicantRecordal(string xID)
+    {
+        Applicant_Recordal renewal = new Applicant_Recordal();
+        SqlConnection connection = new SqlConnection(Connect());
+        SqlCommand command = new SqlCommand("SELECT * FROM APPLICANT_RECORDAL  WHERE Recordal_Id='" + xID + "' ", connection);
+        connection.Open();
+        SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+        while (reader.Read())
+        {
+            renewal = new Applicant_Recordal
+            {
+                old_applicant = reader["OLD_APPLICANT"].ToString(),
+                new_applicant = reader["NEW_APPLICANT"].ToString()
+               
+               
             };
         }
         reader.Close();
@@ -2969,7 +3155,290 @@ public class pt
         reader.Close();
         return list;
     }
+    public pt.Stage getPwalletByID2(string xid)
+    {
+        pt.Stage pwallet = new pt.Stage();
+        SqlConnection connection = new SqlConnection(this.Connect());
+        SqlCommand command = new SqlCommand("SELECT * FROM pwallet WHERE id='" + xid + "' ", connection);
+        connection.Open();
+        SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+        while (reader.Read())
+        {
 
+
+            pwallet.data_status = reader["data_status"].ToString();
+
+            pwallet.status = reader["status"].ToString();
+        }
+        reader.Close();
+        connection.Close();
+        return pwallet;
+    }
+    public Recordal_Result InsertRecordal( string logstaff, string vamount, string vtransid, string description)
+    {
+       pt.Stage pw = getPwalletByID2(logstaff);
+
+        string str = "";
+        SqlConnection connection = new SqlConnection(this.Connect());
+        SqlCommand command = connection.CreateCommand();
+        command.CommandText = "INSERT INTO Recordal (RECORDAL_REQUEST_DATE,LOG_STAFF,STATUS,AMOUNT,TRANSACTIONID,RECORDAL_TYPE,data_status,data_status2,Description) VALUES (@RECORDAL_REQUEST_DATE,@LOG_STAFF,@STATUS,@AMOUNT,@TRANSACTIONID,@RECORDAL_TYPE,@data_status,@data_status2,@Description) SELECT SCOPE_IDENTITY()";
+        connection.Open();
+      
+        command.Parameters.Add("@RECORDAL_REQUEST_DATE", SqlDbType.DateTime);
+       
+        command.Parameters.Add("@LOG_STAFF", SqlDbType.VarChar, 50);
+        command.Parameters.Add("@STATUS", SqlDbType.VarChar, 50);
+        command.Parameters.Add("@AMOUNT", SqlDbType.VarChar, 50);
+        command.Parameters.Add("@TRANSACTIONID", SqlDbType.VarChar, 50);
+        command.Parameters.Add("@RECORDAL_TYPE", SqlDbType.VarChar, 50);
+        command.Parameters.Add("@data_status", SqlDbType.VarChar, 50);
+        command.Parameters.Add("@data_status2", SqlDbType.VarChar, 50);
+        command.Parameters.Add("@Description", SqlDbType.VarChar, 500);
+
+       
+        command.Parameters["@Description"].Value = description;
+        
+        command.Parameters["@RECORDAL_REQUEST_DATE"].Value = DateTime.Now;
+        command.Parameters["@LOG_STAFF"].Value = logstaff;
+        command.Parameters["@STATUS"].Value = "Pending";
+        command.Parameters["@AMOUNT"].Value = vamount;
+        command.Parameters["@TRANSACTIONID"].Value = vtransid;
+        command.Parameters["@RECORDAL_TYPE"].Value = "p007";
+
+        command.Parameters["@data_status"].Value = pw.data_status;
+        command.Parameters["@data_status2"].Value = pw.status;
+        foreach (SqlParameter Parameter in command.Parameters)
+        {
+            if (Parameter.Value == null)
+            {
+                Parameter.Value = DBNull.Value;
+            }
+        }
+        str = command.ExecuteScalar().ToString();
+        connection.Close();
+        update_RecordalStatus3(str, "1", "Recordal");
+        //  g_pwalletStatus(logstaff, "1", "Recordal");
+        string vf = getG_PwalletTransID(logstaff);
+
+        Recordal_Result ks = new Recordal_Result();
+        ks.Recordal_Id = str;
+        ks.TransactionId = vf;
+        return ks;
+    }
+
+    public void  InsertRecordalApplicant(string RecordalId, string oldApplicant, string NewApplicant)
+    {
+        
+        string str = "";
+        SqlConnection connection = new SqlConnection(this.Connect());
+        SqlCommand command = connection.CreateCommand();
+        command.CommandText = "INSERT INTO APPLICANT_RECORDAL (OLD_APPLICANT,NEW_APPLICANT,Recordal_Id) VALUES (@OLD_APPLICANT,@NEW_APPLICANT,@Recordal_Id) SELECT SCOPE_IDENTITY()";
+        connection.Open();
+
+       
+
+        command.Parameters.Add("@Recordal_Id", SqlDbType.VarChar, 50);
+        command.Parameters.Add("@OLD_APPLICANT", SqlDbType.VarChar, 200);
+        command.Parameters.Add("@NEW_APPLICANT", SqlDbType.VarChar, 200);
+        
+
+       
+        command.Parameters["@Recordal_Id"].Value = RecordalId;
+        command.Parameters["@OLD_APPLICANT"].Value = oldApplicant;
+        command.Parameters["@NEW_APPLICANT"].Value = NewApplicant;
+       
+      
+        foreach (SqlParameter Parameter in command.Parameters)
+        {
+            if (Parameter.Value == null)
+            {
+                Parameter.Value = DBNull.Value;
+            }
+        }
+        str = command.ExecuteScalar().ToString();
+        connection.Close();
+      
+    }
+
+    public void InsertRecordalPtInfo(string RecordalId, string oldPtInfo, string NewPtInfo)
+    {
+
+        string str = "";
+        SqlConnection connection = new SqlConnection(this.Connect());
+        SqlCommand command = connection.CreateCommand();
+        command.CommandText = "INSERT INTO PATENTINFO_RECORDAL (OLD_PATENTINFO,NEW_PATENTINFO,Recordal_Id) VALUES (@OLD_APPLICANT,@NEW_APPLICANT,@Recordal_Id) SELECT SCOPE_IDENTITY()";
+        connection.Open();
+
+
+
+        command.Parameters.Add("@Recordal_Id", SqlDbType.VarChar, 50);
+        command.Parameters.Add("@OLD_APPLICANT", SqlDbType.VarChar, 200);
+        command.Parameters.Add("@NEW_APPLICANT", SqlDbType.VarChar, 200);
+
+
+
+        command.Parameters["@Recordal_Id"].Value = RecordalId;
+        command.Parameters["@OLD_APPLICANT"].Value = oldPtInfo;
+        command.Parameters["@NEW_APPLICANT"].Value = NewPtInfo;
+
+
+        foreach (SqlParameter Parameter in command.Parameters)
+        {
+            if (Parameter.Value == null)
+            {
+                Parameter.Value = DBNull.Value;
+            }
+        }
+        str = command.ExecuteScalar().ToString();
+        connection.Close();
+
+    }
+
+    public void InsertRecordalAssignment_info(string RecordalId, string oldAssignment_info, string NewAssignment_info)
+    {
+
+        string str = "";
+        SqlConnection connection = new SqlConnection(this.Connect());
+        SqlCommand command = connection.CreateCommand();
+        command.CommandText = "INSERT INTO ASSIGNMENTINFO_RECORDAL (OLD_ASSIGNMENTINFO,NEW_ASSIGNMENTINFO,Recordal_Id) VALUES (@OLD_APPLICANT,@NEW_APPLICANT,@Recordal_Id) SELECT SCOPE_IDENTITY()";
+        connection.Open();
+
+
+
+        command.Parameters.Add("@Recordal_Id", SqlDbType.VarChar, 50);
+        command.Parameters.Add("@OLD_APPLICANT", SqlDbType.VarChar, 200);
+        command.Parameters.Add("@NEW_APPLICANT", SqlDbType.VarChar, 200);
+
+
+
+        command.Parameters["@Recordal_Id"].Value = RecordalId;
+        command.Parameters["@OLD_APPLICANT"].Value = oldAssignment_info;
+        command.Parameters["@NEW_APPLICANT"].Value = NewAssignment_info;
+
+
+        foreach (SqlParameter Parameter in command.Parameters)
+        {
+            if (Parameter.Value == null)
+            {
+                Parameter.Value = DBNull.Value;
+            }
+        }
+        str = command.ExecuteScalar().ToString();
+        connection.Close();
+
+    }
+
+    public void InsertRecordalInventor_info(string RecordalId, string oldInventor_info, string NewInventor_info)
+    {
+
+        string str = "";
+        SqlConnection connection = new SqlConnection(this.Connect());
+        SqlCommand command = connection.CreateCommand();
+        command.CommandText = "INSERT INTO INVENTORINFO_RECORDAL (OLD_INVENTORINFO,NEW_INVENTORINFO,Recordal_Id) VALUES (@OLD_APPLICANT,@NEW_APPLICANT,@Recordal_Id) SELECT SCOPE_IDENTITY()";
+        connection.Open();
+
+
+
+        command.Parameters.Add("@Recordal_Id", SqlDbType.VarChar, 50);
+        command.Parameters.Add("@OLD_APPLICANT", SqlDbType.VarChar, 200);
+        command.Parameters.Add("@NEW_APPLICANT", SqlDbType.VarChar, 200);
+
+
+
+        command.Parameters["@Recordal_Id"].Value = RecordalId;
+        command.Parameters["@OLD_APPLICANT"].Value = oldInventor_info;
+        command.Parameters["@NEW_APPLICANT"].Value = NewInventor_info;
+
+
+        foreach (SqlParameter Parameter in command.Parameters)
+        {
+            if (Parameter.Value == null)
+            {
+                Parameter.Value = DBNull.Value;
+            }
+        }
+        str = command.ExecuteScalar().ToString();
+        connection.Close();
+
+    }
+
+    public void InsertRecordalPriority_info(string RecordalId, string oldPriority_info, string NewPriority_info)
+    {
+
+        string str = "";
+        SqlConnection connection = new SqlConnection(this.Connect());
+        SqlCommand command = connection.CreateCommand();
+        command.CommandText = "INSERT INTO INVENTORINFO_RECORDAL (OLD_PriorityINFO,NEW_PriorityINFO,Recordal_Id) VALUES (@OLD_APPLICANT,@NEW_APPLICANT,@Recordal_Id) SELECT SCOPE_IDENTITY()";
+        connection.Open();
+
+
+
+        command.Parameters.Add("@Recordal_Id", SqlDbType.VarChar, 50);
+        command.Parameters.Add("@OLD_APPLICANT", SqlDbType.VarChar, 200);
+        command.Parameters.Add("@NEW_APPLICANT", SqlDbType.VarChar, 200);
+
+
+
+        command.Parameters["@Recordal_Id"].Value = RecordalId;
+        command.Parameters["@OLD_APPLICANT"].Value = oldPriority_info;
+        command.Parameters["@NEW_APPLICANT"].Value = NewPriority_info;
+
+
+        foreach (SqlParameter Parameter in command.Parameters)
+        {
+            if (Parameter.Value == null)
+            {
+                Parameter.Value = DBNull.Value;
+            }
+        }
+        str = command.ExecuteScalar().ToString();
+        connection.Close();
+
+    }
+    public string getG_PwalletTransID(string id)
+    {
+        string str = "";
+        SqlConnection connection = new SqlConnection(this.Connect());
+        SqlCommand command = new SqlCommand("SELECT validationID from pwallet where ID='" + id + "'", connection)
+        {
+            CommandTimeout = 0
+        };
+        connection.Open();
+        SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+        while (reader.Read())
+        {
+            str = reader["validationID"].ToString();
+        }
+        reader.Close();
+        connection.Close();
+        return str;
+    }
+    public int update_RecordalStatus3(string xID, string sent_status, string sent_status2)
+    {
+        //Int32 vint = getMaxId(xID);
+        //String AddressId = getApplicantAddressId(xID);
+        //Int64 AddressId2 = Convert.ToInt64(AddressId);
+        SqlConnection connection = new SqlConnection(this.Connect());
+        SqlCommand command = connection.CreateCommand();
+        DateTime vv = DateTime.Now;
+
+        command.CommandText = "UPDATE Recordal   SET data_status3=@sent_status,data_status4 =@sent_status2  WHERE id=@xID ";
+        connection.Open();
+        command.Parameters.Add("@xID", SqlDbType.NVarChar, 500);
+        command.Parameters.Add("@sent_status", SqlDbType.NVarChar, 500);
+
+        command.Parameters.Add("@sent_status2", SqlDbType.NVarChar, 500);
+
+
+        command.Parameters["@xID"].Value = xID;
+        command.Parameters["@sent_status"].Value = sent_status;
+        command.Parameters["@sent_status2"].Value = sent_status2;
+
+
+        int num = command.ExecuteNonQuery();
+        connection.Close();
+        return num;
+    }
     public List<PtInfo> getSearchPtInfoRS(string kword, List<string> fulltext, string cri)
     {
         List<PtInfo> list = new List<PtInfo>();
@@ -3098,6 +3567,32 @@ public class pt
                 amt = reader["amt"].ToString(),
                 reg_date = reader["reg_date"].ToString(),
                 data_status = reader["data_status"].ToString()
+            };
+            list.Add(item);
+        }
+        reader.Close();
+        return list;
+    }
+
+    public List<Stage> getStageByUserID3(string validationID)
+    {
+        List<Stage> list = new List<Stage>();
+        SqlConnection connection = new SqlConnection(Connect());
+        SqlCommand command = new SqlCommand("SELECT * FROM pwallet WHERE validationID='" + validationID + "'    AND data_status <>'' ", connection);
+        connection.Open();
+        SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+        while (reader.Read())
+        {
+            Stage item = new Stage
+            {
+                ID = reader["ID"].ToString(),
+                applicantID = reader["applicantID"].ToString(),
+                validationID = reader["validationID"].ToString(),
+                stage = reader["stage"].ToString(),
+                status = reader["status"].ToString(),
+                data_status = reader["data_status"].ToString(),
+                amt = reader["amt"].ToString(),
+                reg_date = reader["reg_date"].ToString()
             };
             list.Add(item);
         }
@@ -4187,6 +4682,76 @@ public class pt
         public string name { get; set; }
     }
 
+    public class Recordal
+    {
+        public string ID { get; set; }
+        public string OLD_APPLICANTNAME { get; set; }
+        public string NEW_APPLICANTNAME { get; set; }
+        public DateTime RECORDAL_REQUEST_DATE { get; set; }
+
+        public String RECORDAL_REQUEST_DATE2 { get; set; }
+        public DateTime RECORDAL_APPROVE_DATE { get; set; }
+
+        public string AMOUNT { get; set; }
+        public string TRANSACTIONID { get; set; }
+
+        public string OFFICER { get; set; }
+
+        public string VSTATUS { get; set; }
+
+        public string RECORDAL_TYPE { get; set; }
+
+        public string OLD_APPLICANTADDRESS { get; set; }
+        public string RECORDAL_TYPE3 { get; set; }
+
+
+        public string NEW_APPLICANTADDRESS { get; set; }
+
+        public string Xcomment { get; set; }
+
+        public string OLD_PRODUCT_TITLE { get; set; }
+
+        public string NEW_PRODUCT_TITLE { get; set; }
+
+        public string OLD_PRODUCT_LOGO { get; set; }
+
+        public string OLD_AGENTNAME { get; set; }
+        public string NEW_AGENTNAME { get; set; }
+        public string OLD_AGENTCODE { get; set; }
+        public string NEW_AGENTCODE { get; set; }
+        public string OLD_AGENTEMAIL { get; set; }
+        public string NEW_AGENTEMAIL { get; set; }
+        public string OLD_AGENTPHONE { get; set; }
+        public string NEW_AGENTPHONE { get; set; }
+        public string OLDAGENT_ADDRESS { get; set; }
+        public string NEWAGENT_ADDRESS { get; set; }
+        public string NEW_PRODUCT_LOGO { get; set; }
+
+        public string LOGO_DESC { get; set; }
+
+        public string Detail_Id { get; set; }
+
+        public string data_status { get; set; }
+
+        public string data_status2 { get; set; }
+
+        public string data_status3 { get; set; }
+
+        public string data_status4 { get; set; }
+
+        public string description { get; set; }
+
+        public string UPLOADPATH { get; set; }
+
+
+        public string UPLOADPATH2 { get; set; }
+
+        public string UPLOADPATH3 { get; set; }
+
+
+
+
+    }
     public class SWallet
     {
         public string ID { get; set; }

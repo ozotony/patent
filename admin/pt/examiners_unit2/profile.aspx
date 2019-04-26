@@ -78,7 +78,7 @@
     <table align="center" width="100%" >
         <tr>
             <td colspan="3" align="left" class="tbbg">
-                WELCOME TO THE PATENT EXAMINATION 1 OFFICE</td>
+                WELCOME TO THE PATENT EXAMINATION 2 OFFICE</td>
         </tr>
        
         
@@ -92,11 +92,13 @@
                 <a href="./examiners.aspx">
                     <img alt="" src="../../../images/view.png" style="width: 100px; height: 100px" /></a></td>
             <td style="width: 30%;" align="center">
-                 <a href="./e_contact.aspx">
-                    <img alt="" src="../../../images/view.png" style="width: 100px; height: 100px" /></a></td>
+                <a href="../../../cp.aspx?x=<%Response.Write(adminID);  %>">
+                    <img alt="" src="../../../images/xsync.png" style="width: 100px; height: 100px" /></a>
+                </td>
             <td style="width: 30%;" align="center">
-                <a href="./examiners_r.aspx">
-                    <img alt="" src="../../../images/view.png" style="width: 100px; height: 100px" /></a></td>
+                 <a href="./eed.aspx"> 
+                    <img alt="" src="../../../images/xexec.png" style="width: 100px; height: 100px" /></a>
+               </td>
         </tr>
         
         <tr>
@@ -104,11 +106,11 @@
                 <a href="./examiners.aspx">NEW APPLICATIONS</a>
                  &nbsp;<br /><%Response.Write("( "+lt_mi+" )");%></td>
             <td style="width: 30%;" align="center">
-                <a  href="./e_contact.aspx">KIV</a>
-                 &nbsp;<br /><%Response.Write("( " + lt_mi_contact + " )");%></td>
+                  <a href="../../../cp.aspx?x=<%Response.Write(adminID);  %>">CHANGE PASSWORD</a>
+               </td>
             <td style="width: 30%;" align="center">
-                <a href="./examiners_r.aspx">"NOT-PATENTED" APPLICATIONS</a>
-                <br /><%Response.Write("( " + lt_mi_r + " )");%></td>
+                 <a href="./eed.aspx">CHECK STATISTICS</a>
+              </td>
         </tr>
         
         <tr>
@@ -118,26 +120,19 @@
         
         <tr>
             <td style="width: 30%;" align="center">
-                <a href="./acceptance_slip.aspx">
-                    <img alt="" src="../../../images/view.png" style="width: 100px; height: 100px" /></a></td>
+                </td>
             <td style="width: 30%;" align="center">
-
-               <a href="./edit_form.aspx">
-                    <img alt="" src="../../../images/view.png" style="width: 100px; height: 100px" /></a></td>
+                &nbsp;</td>
             <td style="width: 30%;" align="center">
-                <a href="./rejection_slip.aspx">
-                    <img alt="" src="../../../images/view.png" style="width: 100px; height: 100px" /></a></td>
+                </td>
         </tr>
         <tr>
             <td style="width: 30%;" align="center">
-               <a href="./acceptance_slip.aspx">ACCEPTED APPLICATIONS</a>
-                 &nbsp;<br /><%Response.Write("( " + lt_mi_a + " )");%></td>
+               </td>
             <td style="width: 30%;" align="center">
-                  <a href="./edit_form.aspx">EDIT APPLICATION FORMS</a>
                 </td>
             <td style="width: 30%;" align="center">
-                <a href="./rejection_slip.aspx">REFUSED APPLICATIONS</a>
-                 &nbsp;<br /><%Response.Write("( " + lt_mi_ref + " )");%></td>
+               </td>
         </tr>
         
         <tr>
@@ -147,58 +142,46 @@
         
         <tr>
             <td style="width: 30%;" align="center">
-                <a href="../../../cp.aspx?x=<%Response.Write(adminID);  %>">
-                    <img alt="" src="../../../images/xsync.png" style="width: 100px; height: 100px" /></a></td>
+               </td>
             <td style="width: 30%;" align="center">
-                <a href="./edit_ren.aspx">
-                    <img alt="" src="../../../images/view.png" style="width: 100px; height: 100px" /></a></td>
+                &nbsp;</td>
             <td style="width: 30%;" align="center">
-                <a href="./eed.aspx"> 
-                    <img alt="" src="../../../images/xexec.png" style="width: 100px; height: 100px" /></a></td>
+                </td>
         </tr>
         <tr>
             <td style="width: 30%;" align="center">
-                <a href="../../../cp.aspx?x=<%Response.Write(adminID);  %>">CHANGE PASSWORD</a></td>
+              </td>
             <td style="width: 30%;" align="center">
-                 <a href="./edit_ren.aspx">EDIT RENEWAL FORMS</a>
                </td>
             <td style="width: 30%;" align="center">
-                <a href="./eed.aspx">CHECK STATISTICS</a></td>
+               </td>
         </tr>
         
         <tr>
             <td align="center" colspan="3" class="tbbg">
-                &nbsp;
-                &nbsp;
-                &nbsp;APPROVAL SECTION
+               
             </td>
         </tr>
         
         <tr>
             <td style="width: 30%;" align="center">
-                <a href="./acceptance.aspx">
-                    <img alt="" src="../../../images/view.png" style="width: 100px; height: 100px" /></a>
+               
                     </td>
             <td style="width: 30%;" align="center">
-                <a href="./a_contact.aspx">
-                    <img alt="" src="../../../images/view.png" style="width: 100px; height: 100px" /></a>
+               
                 </td>
             <td style="width: 30%;" align="center">
-                <a href="./acceptance_r.aspx">
-                    <img alt="" src="../../../images/rejected.png" style="width: 100px; height: 100px" /></a>
+               
                     </td>
         </tr>
         <tr>
             <td style="width: 30%;" align="center">
-             <a href="./acceptance.aspx">NEW APPLICATIONS</a>
-                 &nbsp;<br /><%Response.Write("( " + lt_app_mi + " )");%>
+            
                </td>
             <td style="width: 30%;" align="center">
-                <a href="./a_contact.aspx">KIV</a>
-                 &nbsp;<br /><%Response.Write("( " + lt_app_mi_contact + " )");%></td>
+               </td>
             <td style="width: 30%;" align="center">
-             <a href="./acceptance_r.aspx">"REVIEW PATENT" APPLICATIONS</a>
-             &nbsp;<br /><%Response.Write("( " + lt_app_mi_r + " )");%>
+            
                 </td>
         </tr>
         
@@ -206,20 +189,19 @@
             <td style="width: 30%;" align="center">
                 &nbsp;</td>
             <td style="width: 30%;" align="center">
-               <a href="./online_request_profile.aspx"> <img alt="" src="../../../images/view.png" style="width: 100px; height: 100px" /></a>
+              
                 </td>
             <td style="width: 30%;" align="center">
                 &nbsp;</td>
         </tr>
         <tr>
             <td style="width: 30%;" align="center">
-                <br /><%Response.Write("( " + lt_app_mi + " )");%>
+              
                </td>
             <td style="width: 30%;" align="center">
-                <a href="./online_request_profile.aspx">ONLINE REQUEST</a>
-                   &nbsp;<br /><%Response.Write("( " + or_cnt + " )");%></td>
+               </td>
             <td style="width: 30%;" align="center">
-                <br /><%Response.Write("( " + lt_app_mi_r + " )");%>
+               
                 </td>
         </tr>
         

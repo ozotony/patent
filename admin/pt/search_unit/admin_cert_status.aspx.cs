@@ -12,12 +12,50 @@ public partial class admin_pt_search_unit_admin_cert_status : System.Web.UI.Page
     public string current_date;
     public string msg = "";
     public pt t = new pt();
+   public  zues.Adminz ad = new zues.Adminz();
+    public zues z = new zues();
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if ((((Session["transID"] != null) && (Session["transID"].ToString() != "")) && (Session["x_code"] != null)) && (Session["x_code"].ToString() != ""))
         {
             c_p = t.getXPwalletDetailsByCode(Session["transID"].ToString(), Session["x_code"].ToString());
+            string admin = Session["pwalletID"].ToString();
+            ad = z.getAdminDetails(admin);
+           // vame2.Text = z.getRoleName(ad.xroleID).ToUpper();
+           try
+            {
+              //  vame2.Text = z.getRoleName(ad.xroleID).ToUpper();
+                vame2.Text = ad.Designation.ToUpper();
+            }
+
+            catch(Exception ee)
+            {
+
+            }
+
+            try
+            {
+              //  vame.Text = ad.Designation.ToUpper();
+               vame.Text = ad.xname.ToUpper();
+            }
+
+            catch (Exception ee)
+            {
+
+            }
+
+           
+            if (string.IsNullOrEmpty(ad.FilePath))
+            {
+                img.Visible = false;
+            }
+            else
+            {
+                img.Visible = true;
+                img.ImageUrl = ".." + ad.FilePath;
+            }
+            
             if (c_p.ID != null)
             {
                 c_ren = t.getRenewalByLogstaffID(c_p.ID);

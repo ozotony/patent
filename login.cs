@@ -127,6 +127,11 @@ public partial class login : Page
                         {
                             Response.Redirect("./admin/pt/examiners_unit/profile.aspx");
                         }
+
+                        else if (str3 == "8")
+                        {
+                            Response.Redirect("./admin/pt/examiners_unit2/profile.aspx");
+                        }
                         else if (str3 == "5")
                         {
                             Response.Redirect("./admin/pt/acceptance_unit/profile.aspx");

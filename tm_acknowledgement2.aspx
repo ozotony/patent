@@ -1,49 +1,39 @@
-﻿<%@ page language="C#" autoeventwireup="true"  CodeFile="acceptance_slip_details.cs"  inherits="admin_pt_examiners_unit_acceptance_slip_details " %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="tm_acknowledgement2.aspx.cs" Inherits="tm_acknowledgement2" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
-<link href="../../../css/print_style.css" rel="stylesheet" type="text/css" />
+    <title>ACKNOWLEDGEMENT SLIP</title>
+   
+<link href="css/print_style.css" rel="stylesheet" type="text/css" />
 
-<script src="../../../js/funk.js" type="text/javascript"></script>
-    <style type="text/css">
-        .auto-style1 {
-            width: 125px;
-            height: 100px;
+<script src="js/jquery.js" type="text/javascript"></script>
+
+<script src="js/funk.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        printPtCert2() {
+           window.print()
         }
-    </style>
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
-    <div class="container">
-        <div class="sidebar">
-            <a href="./profile.aspx">PROFILE</a> 
-            <a href="../../../cp.aspx?x=<% Response.Write(admin); %>">CHANGE PASSWORD</a> 
-            <a href="./profile.aspx">VIEW STATISTICS</a>
-            <a href="./acceptance_slip.aspx">VIEW SLIPS</a>
-             <a href="../lo.aspx" >LOG OFF</a>
-        </div>
-        <div class="content">
-          
+       
             <div id="searchform">
-    
-     <table align="center"  style="width:100%;" class="form" >
-            <tr id="xdets">
-            <td>
-            <table align="center" width="1000px" class="form" >    
+
+    <table align="center" width="1000px" class="form" >    
         <tr>
             <td colspan="2" align="center" >
-             <img alt="Coat Of Arms" height="79" src="../../../images/coat_of_arms.png" 
+             <img alt="Coat Of Arms" height="79" src="images/coat_of_arms.png" 
                         width="85" /><br />
               FEDERAL REPUBLIC OF NIGERIA<br />
                     FEDERAL MINISTRY OF INDUSTRY, TRADE AND INVESTMENT<br />
                     COMMERCIAL LAW DEPARTMENT<br />
                     TRADEMARKS, PATENTS AND DESIGNS REGISTRY<br />
                     PATENTS AND DESIGNS DECREE NO 60 OF 1970<br />
-                   <div style="font-size:22px;"><strong>ACCEPTANCE LETTER</strong></div> 
+                   <div style="font-size:20px;"><strong>ACKNOWLEDGMENT FORM</strong></div> 
             </td>
         </tr>       
         
@@ -169,7 +159,9 @@
          }%>
          <%if (lt_inv.Count > 0)
            {
-              %>
+              %>  
+        
+       
         <tr>
             <td class="tbbg" colspan="2">
                 --- TRUE INVENTOR INFORMATION ---</td>
@@ -223,7 +215,7 @@
             <td class="tbbg" colspan="2">
                 --- ASSIGNMENT INFORMATION ---</td>
         </tr>
-         <tr>
+          <tr>
             <td align="right">
                 DATE OF ASSIGNMENT :</td>
                 <td>
@@ -233,7 +225,7 @@
             <td align="left" colspan="2" style="background-color:#999999;">
                 <strong>ASSIGNEE >></strong></td>
         </tr>
-        
+       
         <tr>
             <td align="right">
                 NAME :</td>
@@ -247,7 +239,7 @@
                 <td>
                     <% Response.Write(lt_assinfo[0].assignee_address); %></td>
         </tr>
-        <tr>
+         <tr>
             <td align="right">
                 NATIONALITY :</td>
                 <td>
@@ -273,7 +265,7 @@
                 <td>
                      <% Response.Write(lt_assinfo[0].assignor_address); %></td>
         </tr>
-          <tr>
+        <tr>
             <td align="right">
                 NATIONALITY :</td>
                 <td>
@@ -399,17 +391,10 @@
         </tr>
         <tr>
             <td align="right">
-                 <%if (lt_mi[0].loa_doc == "")
-              { %>
                LETTER OF AUTHORIZATION OF AGENT(FORM 2) :
-                <%}
-                    else
-                    { %>
-              <a href="../<%=lt_mi[0].loa_doc %>" style="text-decoration:none; color:#000;" target="_blank"> LETTER OF AUTHORIZATION OF AGENT(FORM 2) :</a>
-                <%} %>
             </td>
             <td >
-            <%if (lt_mi[0].loa_doc == "")
+            <%if ((lt_mi[0].loa_doc == "")||(lt_mi[0].loa_doc == "0"))
               { %> NOT ATTACHED<%}
               else
               { %> ATTACHED<%} %></td>
@@ -417,17 +402,9 @@
         
         <tr>
             <td align="right">
-                 <%if (lt_mi[0].claim_doc == "")
-              { %>
-                CLAIM(S) :
-                <%}
-                    else
-                    { %>
-                  <a href="../<%=lt_mi[0].claim_doc %>" style="text-decoration:none; color:#000;" target="_blank">CLAIM(S) :</a>
-                <%} %>
-            </td>
+                CLAIM(S) :</td>
             <td >
-                <%if (lt_mi[0].claim_doc == "")
+                <%if ((lt_mi[0].claim_doc == "") || (lt_mi[0].claim_doc == "0"))
                   { %> NOT ATTACHED<%}
                   else
                   { %> ATTACHED<%} %></td>
@@ -435,17 +412,9 @@
         
         <tr>
             <td align="right">
-                 <%if (lt_mi[0].pct_doc == "")
-              { %>
-                PCT DOCUMENT:
-                <%}
-                    else
-                    { %>
-                 <a href="../<%=lt_mi[0].pct_doc %>" style="text-decoration:none; color:#000;" target="_blank">PCT DOCUMENT:</a>
-                <%} %>
-            </td>
+                PCT DOCUMENT:</td>
             <td >
-                  <%if (lt_mi[0].pct_doc == "")
+                  <%if ((lt_mi[0].pct_doc == "") || (lt_mi[0].pct_doc == "0"))
                     { %> NOT ATTACHED<%}
                     else
                     { %> ATTACHED<%} %></td>
@@ -453,17 +422,9 @@
         
         <tr>
             <td align="right">
-                 <%if (lt_mi[0].doa_doc == "")
-                    { %>
-                DEED OF ASSIGNMENT:
-                <%}
-                    else
-                    { %>
-                 <a href="../<%=lt_mi[0].doa_doc %>" style="text-decoration:none; color:#000;" target="_blank">DEED OF ASSIGNMENT:</a>
-                <%} %>
-            </td>
+                DEED OF ASSIGNMENT:</td>
             <td >
-                  <%if (lt_mi[0].doa_doc == "")
+                  <%if ((lt_mi[0].doa_doc == "") || (lt_mi[0].doa_doc == "0"))
                     { %> NOT ATTACHED<%}
                     else
                     { %> ATTACHED<%} %></td>
@@ -471,17 +432,9 @@
         
         <tr>
             <td align="right">
-                <%if (lt_mi[0].spec_doc == "")
-                    { %>
-                COMPLETE SPECIFICATION (FORM 3):
-                <%}
-                    else
-                    { %>
-                 <a href="../<%=lt_mi[0].spec_doc %>" style="text-decoration:none; color:#000;" target="_blank">COMPLETE SPECIFICATION (FORM 3):</a>
-                <%} %>
-            </td>
+                COMPLETE SPECIFICATION (FORM 3):</td>
             <td >
-                  <%if (lt_mi[0].spec_doc == "")
+                  <%if ((lt_mi[0].spec_doc == "") || (lt_mi[0].spec_doc == "0"))
                     { %> NOT ATTACHED<%}
                     else
                     { %> ATTACHED<%} %></td>
@@ -495,33 +448,27 @@
         <tr>
             <td  align="center" colspan="2">
               
-             <strong>Your application has been accepted and is being processed for grant of a patent</strong>
-             <br />
-             <%--  <img alt="Adewasiu" src="../signatures/aisha_acceptance_mini_png.png" style=" width: 116px;height: 55px;" />--%>
-               <b>  <img alt="Adewasiu" src="../signatures/sig3.jpg" style=" -webkit-filter: grayscale(100%);filter: gray;filter: grayscale(100%);background-color:black"  /> </b>
+             <strong>YOUR APPLICATION HAS BEEN RECEIVED AND IS RECEIVING DUE ATTENTION</strong><br />
+             <strong>TRADEMARKS, PATENTS AND DESIGNS REGISTRY 
                 <br />
-                <strong> BRIGHT C.ONYEBINANMA
-                    (Senior Assistant Registrar 1 )
+                COMMERCIAL LAW DEPARTMENT
                 <br />
-              </strong>
-             </td>
-        </tr>
-        
+                FEDERAL MINISTRY OF INDUSTRY, TRADE AND INVESTMENT
+                </strong>
+                </td>
+        </tr>        
          
     </table>
-            </td>
-            </tr>
-			
-			 <tr>
-            <td align="center">
-                <input type="button" name="Printform" id="Button1" value="Print" onclick="printAssessment('xdets');return false" class="button" />
-            </td>
+        </div>
+  <table style="float:left;width:100%;">
+        <tr>
+        <td align="left" width="100%">       
+                <input type="button" name="Printform" id="Printform" value="Print" onclick="printPtCert2();" class="button" />&nbsp;
+               
+                
+                </td>
         </tr>
-            </table>
-        </div>       
-
-    </div>
-</div>
+        </table>
 </div>
     </form>
 </body>

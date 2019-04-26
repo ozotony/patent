@@ -103,6 +103,8 @@ public partial class admin_pt_x_unit_admin_registration : Page
 
     protected void EditSave_Click(object sender, EventArgs e)
     {
+
+        
         string path = serverpath + @"\Handlers\bf.pke";
         if (File.Exists(path))
         {
@@ -115,7 +117,7 @@ public partial class admin_pt_x_unit_admin_registration : Page
                 file_string = file_string.Replace(oldValue, "");
             }
         }
-        if (z.e_regadmin(edit_xname.Text, ody.EncryptString(edit_xpass.Text, file_len, file_string), edit_xrole.SelectedValue, ody.EncryptString(edit_xemail.Text, file_len, file_string), edit_telephone1.Text, edit_telephone2.Text, "pt", pwalletID, getAdmins.SelectedValue, edit_status.SelectedValue) > 0)
+        if (z.e_regadmin(edit_xname.Text, ody.EncryptString(edit_xpass.Text, file_len, file_string), edit_xrole.SelectedValue, ody.EncryptString(edit_xemail.Text, file_len, file_string), edit_telephone1.Text, edit_telephone2.Text, "pt", pwalletID, getAdmins.SelectedValue, edit_status.SelectedValue , sup_doc2, Server.MapPath("~/") , Designation.Text) > 0)
         {
             x_edit_tbl = 0;
             x_edit_succ = 1;
@@ -130,6 +132,17 @@ public partial class admin_pt_x_unit_admin_registration : Page
         edit_xemail.Text = ody.DecryptString(ad.xemail, file_len, file_string);
         edit_telephone1.Text = ad.xtelephone1;
         edit_telephone2.Text = ad.xtelephone2;
+        Designation.Text = ad.Designation;
+        FilePath.Text = ad.FilePath;
+        if (String.IsNullOrEmpty(ad.FilePath))
+        {
+            FilePath.Visible = false;
+
+        }
+        else
+        {
+            FilePath.Visible = true;
+        }
         edit_xrole.SelectedIndex = Convert.ToInt16(z.getAdmiPriv(ad.xroleID)) - 1;
         edit_status.SelectedIndex = Convert.ToInt16(ad.xvisible);
         enable_EditTbl = "1";
@@ -173,6 +186,16 @@ public partial class admin_pt_x_unit_admin_registration : Page
             edit_xemail.Text = ody.DecryptString(ad.xemail, file_len, file_string);
             edit_telephone1.Text = ad.xtelephone1;
             edit_telephone2.Text = ad.xtelephone2;
+            FilePath.Text = ad.FilePath;
+            if (String.IsNullOrEmpty(ad.FilePath))
+            {
+                FilePath.Visible = false;
+
+            }
+            else
+            {
+                FilePath.Visible = true;
+            }
             edit_xrole.SelectedIndex = Convert.ToInt16(z.getAdmiPriv(ad.xroleID)) - 1;
             edit_status.SelectedIndex = Convert.ToInt16(ad.xvisible);
         }

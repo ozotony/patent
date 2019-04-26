@@ -454,11 +454,11 @@ For further Details, you may wish to contact our personnel through an
 electronic mail to patentoffice@iponigeria.com
             <br /><br />
             REASON:<br /> </strong><%Response.Write(xreason.ToUpper()); %><br />
-                <img alt="Adewasiu" src="../signatures/sig2.jpg" style=" width: 130px;height: 100px;" /><br /><br />
-                    <strong> IGWE JANE
-                    (PRINCIPAL ASST. REGISTRAR 1)
+                <img alt="Adewasiu" src="../signatures/sig3.jpg" style=" width: 130px;height: 100px;" /><br /><br />
+                    <strong> BRIGHT C.ONYEBINANMA
+                    (Senior Assistant Registrar 1)
                 <br />
-                TRADEMARK,PATENT AND DESIGN OFFICE ABUJA, NIGERIA</strong>
+               </strong>
 
              </td>
         </tr>
